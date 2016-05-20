@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':blur_realtime_library'

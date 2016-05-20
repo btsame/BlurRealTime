@@ -1,0 +1,30 @@
+uniform sampler2D sceneTex; // 0
+9. 
+10.uniform float rt_w; // render target width
+11.uniform float rt_h; // render target height
+12.uniform float vx_offset;
+13. 
+14.float offset[3] = float[]( 0.0, 1.3846153846, 3.2307692308 );
+15.float weight[3] = float[]( 0.2270270270, 0.3162162162, 0.0702702703 );
+16. 
+17.void main() 
+18.{ 
+19.  vec3 tc = vec3(1.0, 0.0, 0.0);
+20.  if (gl_TexCoord[0].x<(vx_offset-0.01))
+21.  {
+22.    vec2 uv = gl_TexCoord[0].xy;
+23.    tc = texture2D(sceneTex, uv).rgb * weight[0];
+24.    for (int i=1; i<3; i++) 
+25.    {
+26.      tc += texture2D(sceneTex, uv + vec2(offset[i])/rt_w, 0.0).rgb \
+27.              * weight[i];
+28.      tc += texture2D(sceneTex, uv - vec2(offset[i])/rt_w, 0.0).rgb \
+29.              * weight[i];
+30.    }
+31.  }
+32.  else if (gl_TexCoord[0].x>=(vx_offset+0.01))
+33.  {
+34.    tc = texture2D(sceneTex, gl_TexCoord[0].xy).rgb;
+35.  }
+36.  gl_FragColor = vec4(tc, 1.0);
+37.}
