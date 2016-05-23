@@ -30,7 +30,7 @@ public class BlurView extends GLSurfaceView{
 
         @Override
         public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-            GLES20.glClearColor(0.3f, 0.3f, 0.3f, 0.0f);
+            GLES20.glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
             GLES20.glEnable(GLES20.GL_DEPTH_TEST);
 
             MatrixState.setCamere(0.0f, 0.0f, -0.5f,

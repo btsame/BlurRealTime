@@ -12,6 +12,7 @@ vec4 blur(vec2);
 void main(void)
 {
     gl_FragColor = blur(v_texCoord);
+    //gl_FragColor = texture2D(uSampler2D, v_texCoord); //啊啊啊啊
 }
 
 vec4 blur(vec2 p)

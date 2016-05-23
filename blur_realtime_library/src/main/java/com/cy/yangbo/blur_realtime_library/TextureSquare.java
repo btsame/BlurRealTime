@@ -163,8 +163,8 @@ public class TextureSquare {
         GLES20.glEnableVertexAttribArray(mTextureHandle);
 
         GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, MatrixState.getFinalMatrix(), 0);
-        GLES20.glUniform1f(ufBlurRadiusHandle, 30);
-        GLES20.glUniform1f(ufSampleNumHandle, 5);
+        GLES20.glUniform1f(ufBlurRadiusHandle, 60.0f);
+        GLES20.glUniform1f(ufSampleNumHandle, 2.0f);
         GLES20.glUniform2f(ufResolutionHandle, imageWidth, imageHeight);
 
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);

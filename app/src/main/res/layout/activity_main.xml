@@ -3,20 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.cy.yangbo.blurrealtime.MainActivity">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
 
     <com.cy.yangbo.blur_realtime_library.BlurView
+        android:id="@+id/bv_bar"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_centerInParent="true"/>
+        android:layout_height="60dp"
+        android:layout_centerInParent="true"
+        android:background="@android:color/transparent"/>
 </RelativeLayout>
