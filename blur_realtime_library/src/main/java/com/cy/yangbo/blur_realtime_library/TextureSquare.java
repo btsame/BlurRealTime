@@ -34,14 +34,22 @@ public class TextureSquare {
 
     int imageWidth, imageHeight;
 
+    private Bitmap mTexBitmap;
 
 
     public TextureSquare(GLSurfaceView glSurfaceView){
         this.mGLSurfaceView = glSurfaceView;
 
+        mTexBitmap = readStandardTexture("mm.jpg");
         initVertexData();
         initShader();
         initTexture();
+    }
+
+    public void changeTexBitmap(Bitmap bitmap){
+        mTexBitmap = bitmap;
+        initTexture();
+        mGLSurfaceView.requestRender();
     }
 
     public void initVertexData(){
@@ -189,11 +197,10 @@ public class TextureSquare {
         GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE);
         GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE);
 
-        Bitmap texBitmap = readStandardTexture("mm.jpg");
-        imageWidth = texBitmap.getWidth();
-        imageHeight = texBitmap.getHeight();
-        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, texBitmap, 0);
-        texBitmap.recycle();
+        imageWidth = mTexBitmap.getWidth();
+        imageHeight = mTexBitmap.getHeight();
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, mTexBitmap, 0);
+        mTexBitmap.recycle();
     }
 
     private Bitmap readStandardTexture(String imageName){

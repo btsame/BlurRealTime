@@ -12,10 +12,18 @@
 
     </android.support.v7.widget.RecyclerView>
 
-    <com.cy.yangbo.blur_realtime_library.BlurView
+    <com.cy.yangbo.blur_realtime_library.GPUImageBlurView
         android:id="@+id/bv_bar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="200dp"
         android:layout_centerInParent="true"
+        android:background="@android:color/transparent"/>
+
+    <ImageView
+        android:id="@+id/iv_bar"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="fitXY"
+        android:layout_alignParentBottom="true"
         android:background="@android:color/transparent"/>
 </RelativeLayout>

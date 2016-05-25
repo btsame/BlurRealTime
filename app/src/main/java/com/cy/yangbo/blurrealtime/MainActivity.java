@@ -1,7 +1,7 @@
 package com.cy.yangbo.blurrealtime;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,12 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.cy.yangbo.blur_realtime_library.BlurView;
+import com.cy.yangbo.blur_realtime_library.GPUImageBlurView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
+
     private RecyclerView mContentRV;
-    private BlurView mBarBV;
+    private GPUImageBlurView mBarBV;
+    private ImageView mBarIV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +25,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mContentRV = (RecyclerView) findViewById(R.id.rv_content);
-        mBarBV = (BlurView) findViewById(R.id.bv_bar);
+        mBarBV = (GPUImageBlurView) findViewById(R.id.bv_bar);
+        mBarIV = (ImageView) findViewById(R.id.iv_bar);
+        mBarBV.setBackgroundView(mContentRV);
 
         mContentRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mContentRV.setAdapter(new ContentAdapter());
