@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView mContentRV;
     private GPUImageBlurView mBarBV;
-    private ImageView mBarIV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
 
         mContentRV = (RecyclerView) findViewById(R.id.rv_content);
         mBarBV = (GPUImageBlurView) findViewById(R.id.bv_bar);
-        mBarIV = (ImageView) findViewById(R.id.iv_bar);
         mBarBV.setBackgroundView(mContentRV);
 
         mContentRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));

@@ -3,6 +3,7 @@ package com.cy.yangbo.blur_realtime_library;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.AsyncTask;
@@ -31,10 +32,12 @@ public class GPUImageBlurView extends ImageView {
     private float x, y, width, height;
     private float belowViewX, belowViewY, belowViewWidth, belowViewHeight;
 
+    public static final int SCROLL_SHOW_TRANSPARENT = 0x1;
+    public static final int SCROLL_SHOW_BLACKTRANSPARENT = 0x2;
+    private static int scrollShowStyle = SCROLL_SHOW_BLACKTRANSPARENT;
+
     public GPUImageBlurView(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-//        setBackgroundColor(Color.BLACK);
     }
 
     public void setBackgroundView(@NonNull View view) {
@@ -45,12 +48,15 @@ public class GPUImageBlurView extends ImageView {
             ((ListView) view).setOnScrollListener(new AbsListView.OnScrollListener() {
                 @Override
                 public void onScrollStateChanged(AbsListView view, int scrollState) {
-
+                    if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE){
+                        changeOverlay();
+                    } else {
+                        changeScrollOverlay();
+                    }
                 }
 
                 @Override
                 public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                    changeOverlay();
                 }
             });
         } else if (view instanceof ScrollView) {
@@ -71,16 +77,15 @@ public class GPUImageBlurView extends ImageView {
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                     super.onScrollStateChanged(recyclerView, newState);
                     if(newState == RecyclerView.SCROLL_STATE_IDLE){
-                        //changeOverlay();
-                        asyncChangeOverlay();
+                        changeOverlay();
+                    } else {
+                        changeScrollOverlay();
                     }
                 }
 
                 @Override
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                     super.onScrolled(recyclerView, dx, dy);
-//                    changeOverlay();
-                    asyncChangeOverlay();
                 }
             });
         } else {
@@ -126,7 +131,6 @@ public class GPUImageBlurView extends ImageView {
         Log.d(TAG, "OnPreDrawListener:" + "srcRectWidth:" + srcRectWidth + " srcRectHeight:" + srcRectHeight);
         canvas.drawBitmap(bmp, new Rect(srcRectX, srcRectY, srcRectX + srcRectWidth, srcRectY + srcRectHeight),
                 new Rect(0, 0, (int) width, (int) height), new Paint());
-                    bmp.recycle();
        final GPUImage gpuImage = new GPUImage(getContext());
         new AsyncTask<Bitmap, Void, Bitmap>(){
 
@@ -203,5 +207,15 @@ public class GPUImageBlurView extends ImageView {
         targetBmp = gpuImage.getBitmapWithFilterApplied(targetBmp);
 
         setImageBitmap(targetBmp);
+    }
+
+    private void changeScrollOverlay(){
+        if(scrollShowStyle == SCROLL_SHOW_TRANSPARENT){
+            setImageBitmap(null);
+            setBackgroundColor(Color.TRANSPARENT);
+        } else if(scrollShowStyle == SCROLL_SHOW_BLACKTRANSPARENT){
+            setImageBitmap(null);
+            setBackgroundColor(0x66000000);
+        }
     }
 }
